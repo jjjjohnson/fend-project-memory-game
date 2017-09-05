@@ -7,6 +7,7 @@
 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle'];
 
 let deck = $('.deck');
+let moves = 0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -45,8 +46,10 @@ for (card of shuffled_cards){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-var opened = [];
-$('.deck li').click(function(){
+let opened = [];
+let matched = 0;
+
+$(".card:not(.Locked)").click(function(){
  	$(this).addClass('open show');
  	// console.log('upper',this);
  	let clickedCard = $(this).children().attr('class').split(" ")[1];
@@ -61,25 +64,36 @@ $('.deck li').click(function(){
 			opened[0].removeClass('open show');
 			opened[0].addClass('match');
 			console.log('middle',opened[0].parent());
-			opened[0].effect("shake");
+			opened[0].effect( "bounce", "slow" );
 			opened[1].removeClass('open show');
 			opened[1].addClass('match');
-			// opened[1].effect("shake");
+			opened[1].effect( "bounce", "slow" );
+			matched += 1;
 			opened = [];
-			
+			// if (matched == 1){
+
+			// }
 		} 
 		else{
 			// console.log('down',this);
 			setTimeout(function () { 
 				console.log("Not Match!");
+				console.log('down2',opened);
+				opened[0].effect("shake");
+				opened[1].effect("shake");
 				opened[0].removeClass('open show');
 				opened[1].removeClass('open show');
 				opened = [];
-			}, 500);
+				$('.card').removeClass('Locked');
+			}, 1000);
+			// Lock the card click until the function in setTimeout finish
+			$('.card').addClass('Locked'); 
 		}
 
+
  	}
- 	// console.log($(this).children().attr('class').split(" ")[1]);
+ 	moves += 1;
+ 	$(".moves").text(moves);
 });
 
 
