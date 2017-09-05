@@ -31,7 +31,7 @@ function shuffle(array) {
 
 let shuffled_cards = shuffle(cards);
 for (card of shuffled_cards){
-	deck.append('<li class="card"><i class="fa"></i></li>'); // concat string together?
+	deck.append('<li class="card"><i class="fa ' + card + '"></i></li>'); 
 }
 
 /*
@@ -45,9 +45,42 @@ for (card of shuffled_cards){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- $('.deck li').click(function(){
+var opened = [];
+$('.deck li').click(function(){
  	$(this).addClass('open show');
- });
+ 	// console.log('upper',this);
+ 	let clickedCard = $(this).children().attr('class').split(" ")[1];
+ 	if (opened.length == 0){
+ 		opened.push($(this));
+ 	} 
+ 	else{
+ 		opened.push($(this));
+ 		
+		if (opened[0].children().attr('class').split(" ")[1] == clickedCard){
+			console.log("Match!");	
+			opened[0].removeClass('open show');
+			opened[0].addClass('match');
+			console.log('middle',opened[0].parent());
+			opened[0].effect("shake");
+			opened[1].removeClass('open show');
+			opened[1].addClass('match');
+			// opened[1].effect("shake");
+			opened = [];
+			
+		} 
+		else{
+			// console.log('down',this);
+			setTimeout(function () { 
+				console.log("Not Match!");
+				opened[0].removeClass('open show');
+				opened[1].removeClass('open show');
+				opened = [];
+			}, 500);
+		}
+
+ 	}
+ 	// console.log($(this).children().attr('class').split(" ")[1]);
+});
 
 
 
