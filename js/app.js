@@ -2,9 +2,8 @@
  * Create a list that holds all of your cards
  */
 
- let cards = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
-'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-anchor', 'fa-anchor',
-'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle'];
+ let cards = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-bomb', 'fa-bomb',
+'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle'];
 
 let deck = $('.deck');
 let moves = 0;
@@ -57,6 +56,9 @@ $(".card:not(.Locked)").click(function(){
  		opened.push($(this));
  	} 
  	else{
+ 		// $(".container").addClass('hide');
+ 		// $("body").prepend('<div align="center" id="win">You win <div class="button"><button onclick="location.reload()" type="button">Click to replay!</button></div></div>');
+ 		
  		opened.push($(this));
  		
 		if (opened[0].children().attr('class').split(" ")[1] == clickedCard){
@@ -70,9 +72,10 @@ $(".card:not(.Locked)").click(function(){
 			opened[1].effect( "bounce", "slow" );
 			matched += 1;
 			opened = [];
-			// if (matched == 1){
-
-			// }
+			if (matched == 8){
+				$(".container").addClass('hide');
+ 				$("body").prepend('<div align="center" id="win">You win!<div class="button"><button onclick="location.reload()" type="button">Click to replay!</button></div></div>');
+			}
 		} 
 		else{
 			// console.log('down',this);
@@ -86,17 +89,19 @@ $(".card:not(.Locked)").click(function(){
 				opened = [];
 				$('.card').removeClass('Locked');
 			}, 1000);
-			// Lock the card click until the function in setTimeout finish
+			// TODO: Lock the card click until the function in setTimeout finish
 			$('.card').addClass('Locked'); 
 		}
-
 
  	}
  	moves += 1;
  	$(".moves").text(moves);
 });
 
-
+$(".restart").click(function(){
+	console.log('restart clicked');
+	location.reload()
+});
 
 
 
