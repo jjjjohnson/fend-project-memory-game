@@ -10,14 +10,20 @@
 
 </head>
 <body>
+    <div align="center" id="win" class='hide'>
+        You win!
+        <button onclick="location.reload()" type="button">Click to replay!</button>
+        <ul class="stars">
+        </ul>
 
+    </div>
     <div class="container">
         <header>
             <h1>Matching Game</h1>
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
+        	<ul class="stars" id="star-panel">
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>

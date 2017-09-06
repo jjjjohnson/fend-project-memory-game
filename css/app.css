@@ -114,14 +114,13 @@ h1 {
     padding-top: 10%;
 }
 
-.button {
-
-}
-
 .hide {
     display: none;
 }
 
+button {
+    display: block;
+}
 
 
 

@@ -5,7 +5,7 @@
  let cards = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-bomb', 'fa-bomb',
 'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle'];
 
-let deck = $('.deck');
+const deck = $('.deck');
 let moves = 0;
 /*
  * Display the cards on the page
@@ -29,7 +29,7 @@ function shuffle(array) {
     return array;
 }
 
-let shuffled_cards = shuffle(cards);
+const shuffled_cards = shuffle(cards);
 for (card of shuffled_cards){
 	deck.append('<li class="card"><i class="fa ' + card + '"></i></li>'); 
 }
@@ -72,9 +72,13 @@ $(".card:not(.Locked)").click(function(){
 			opened[1].effect( "bounce", "slow" );
 			matched += 1;
 			opened = [];
-			if (matched == 8){
+			if (matched == 1){
 				$(".container").addClass('hide');
- 				$("body").prepend('<div align="center" id="win">You win!<div class="button"><button onclick="location.reload()" type="button">Click to replay!</button></div></div>');
+ 				$('#win').removeClass('hide');
+ 				for (element of $('#star-panel li')){
+ 					console.log(element);
+ 					$('#win .stars').append(element);
+ 				}
 			}
 		} 
 		else{
@@ -96,12 +100,21 @@ $(".card:not(.Locked)").click(function(){
  	}
  	moves += 1;
  	$(".moves").text(moves);
+ 	if (moves == 15){
+		$('.stars li:first').remove();
+	} else if (moves == 20){
+		$('.stars li:first').remove();
+	} else if (moves == 30){
+		$('.stars li:first').remove();
+	}
 });
 
 $(".restart").click(function(){
 	console.log('restart clicked');
-	location.reload()
+	location.reload();
 });
+
+
 
 
 
