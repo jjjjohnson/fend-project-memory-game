@@ -88,7 +88,7 @@ $(".card").click(function(){
 				// console.log('down',this);
 				setTimeout(function () { 
 					console.log("Not Match!");
-					console.log('down2',opened);
+					// console.log('down2',opened);
 					opened[0].effect("shake");
 					opened[1].effect("shake");
 					opened[0].removeClass('open show Locked');
@@ -107,9 +107,7 @@ $(".card").click(function(){
 		$('.stars li:first').remove();
 	} else if (moves == 20){
 		$('.stars li:first').remove();
-	} else if (moves == 30){
-		$('.stars li:first').remove();
-	}
+	} 
 });
 
 $(".restart").click(function(){
