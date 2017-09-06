@@ -122,6 +122,9 @@ button {
     display: block;
 }
 
+.timer {
+    display: inline;
+}
 
 
 

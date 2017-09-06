@@ -118,10 +118,10 @@ $(".restart").click(function(){
 function writeTimer(){
 	// console.log(count);
 	count = count + 1;
+	$('.timer').text(`|| ${count} s ||`);
 }
 
 var count = 0,
-	MAX_COUNT = 300;
 	counter = setInterval(writeTimer, 1000);
 
 
