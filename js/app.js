@@ -31,7 +31,7 @@ function shuffle(array) {
 
 const shuffled_cards = shuffle(cards);
 for (card of shuffled_cards){
-	deck.append('<li class="card"><i class="fa ' + card + '"></i></li>'); 
+	deck.append(`<li class="card"><i class="fa ${card} "></i></li>`); 
 }
 
 /*
@@ -48,55 +48,56 @@ for (card of shuffled_cards){
 let opened = [];
 let matched = 0;
 
-$(".card:not(.Locked)").click(function(){
- 	$(this).addClass('open show');
- 	// console.log('upper',this);
- 	let clickedCard = $(this).children().attr('class').split(" ")[1];
- 	if (opened.length == 0){
- 		opened.push($(this));
- 	} 
- 	else{
- 		// $(".container").addClass('hide');
- 		// $("body").prepend('<div align="center" id="win">You win <div class="button"><button onclick="location.reload()" type="button">Click to replay!</button></div></div>');
- 		
- 		opened.push($(this));
- 		
-		if (opened[0].children().attr('class').split(" ")[1] == clickedCard){
-			console.log("Match!");	
-			opened[0].removeClass('open show');
-			opened[0].addClass('match');
-			console.log('middle',opened[0].parent());
-			opened[0].effect( "bounce", "slow" );
-			opened[1].removeClass('open show');
-			opened[1].addClass('match');
-			opened[1].effect( "bounce", "slow" );
-			matched += 1;
-			opened = [];
-			if (matched == 1){
-				$(".container").addClass('hide');
- 				$('#win').removeClass('hide');
- 				for (element of $('#star-panel li')){
- 					console.log(element);
- 					$('#win .stars').append(element);
- 				}
-			}
-		} 
-		else{
-			// console.log('down',this);
-			setTimeout(function () { 
-				console.log("Not Match!");
-				console.log('down2',opened);
-				opened[0].effect("shake");
-				opened[1].effect("shake");
+$(".card").click(function(){
+	if (!$(this).hasClass('Locked')){
+	 	$(this).addClass('open show');
+	 	// console.log('upper',this);
+	 	let clickedCard = $(this).children().attr('class').split(" ")[1];
+	 	if (opened.length == 0){
+	 		opened.push($(this));
+	 	} 
+	 	else{
+	 		// $(".container").addClass('hide');
+	 		// $("body").prepend('<div align="center" id="win">You win <div class="button"><button onclick="location.reload()" type="button">Click to replay!</button></div></div>');
+	 		
+	 		opened.push($(this));
+	 		
+			if (opened[0].children().attr('class').split(" ")[1] == clickedCard){
+				console.log("Match!");	
 				opened[0].removeClass('open show');
+				opened[0].addClass('match Locked');
+				console.log('middle',opened[0].parent());
+				opened[0].effect( "bounce", "slow" );
 				opened[1].removeClass('open show');
+				opened[1].addClass('match Locked');
+				opened[1].effect( "bounce", "slow" );
+				matched += 1;
 				opened = [];
-				$('.card').removeClass('Locked');
-			}, 1000);
-			// TODO: Lock the card click until the function in setTimeout finish
-			$('.card').addClass('Locked'); 
-		}
-
+				if (matched == 8){
+					$(".container").addClass('hide');
+	 				$('#win').removeClass('hide');
+	 				$('#win').prepend(`You finish in ${count} seconds`);
+	 				for (element of $('#star-panel li')){
+	 					console.log(element);
+	 					$('#win .stars').append(element);
+	 				}
+				}
+			} 
+			else{
+				// console.log('down',this);
+				setTimeout(function () { 
+					console.log("Not Match!");
+					console.log('down2',opened);
+					opened[0].effect("shake");
+					opened[1].effect("shake");
+					opened[0].removeClass('open show');
+					opened[1].removeClass('open show');
+					opened = [];
+					$('.card').removeClass('Locked');
+				}, 500);
+				$('.card').addClass('Locked'); 
+			}
+			}
  	}
  	moves += 1;
  	$(".moves").text(moves);
@@ -114,6 +115,14 @@ $(".restart").click(function(){
 	location.reload();
 });
 
+function writeTimer(){
+	// console.log(count);
+	count = count + 1;
+}
+
+var count = 0,
+	MAX_COUNT = 300;
+	counter = setInterval(writeTimer, 1000);
 
 
 
