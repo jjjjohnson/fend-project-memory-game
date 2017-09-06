@@ -54,6 +54,7 @@ $(".card").click(function(){
 	 	// console.log('upper',this);
 	 	let clickedCard = $(this).children().attr('class').split(" ")[1];
 	 	if (opened.length == 0){
+	 		$(this).addClass('Locked');
 	 		opened.push($(this));
 	 	} 
 	 	else{
@@ -90,7 +91,7 @@ $(".card").click(function(){
 					console.log('down2',opened);
 					opened[0].effect("shake");
 					opened[1].effect("shake");
-					opened[0].removeClass('open show');
+					opened[0].removeClass('open show Locked');
 					opened[1].removeClass('open show');
 					opened = [];
 					$('.card').removeClass('Locked');
@@ -98,8 +99,9 @@ $(".card").click(function(){
 				$('.card').addClass('Locked'); 
 			}
 			}
+		moves += 1;
  	}
- 	moves += 1;
+ 	
  	$(".moves").text(moves);
  	if (moves == 15){
 		$('.stars li:first').remove();
